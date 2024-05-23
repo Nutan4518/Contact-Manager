@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org/" th:replace="~{normal/base::Layout(~{::section})}">
+<head>
+    <meta charset="UTF-8">
+    <title>Add Contact page</title>
+</head>
+<body>
+<section>
+    <div class="contact-card mt-5" >
+        <div class="card-body">
+            <h1 class="text-center"> Add Contact to your Contact Book</h1>
+            <div class="container-fluid mt-1 ">
+                <div class="row">
+                    <div class="col-md-10 offset-md-2">
+                        <form action="#"
+                        th:object="${contact}"
+                        enctype="multipart/form-data"
+                        method="post"
+                        th:action="@{/user/process-contact}"
+                        class="mt-2"
+                        >
+
+<!--                            first name -->
+                            <div class="input-group mt-3">
+                                <div class="input-group-prepend ">
+                                    <div class="input-group-text">
+                                        <i class="fa-solid fa-plus"></i>
+                                    </div>
+                                </div>
+                                <input required type="text" id="firstName" name="name" placeholder="Enter Name here" class="form-control">
+                            </div>
+<!--end first name-->
+
+
+<!-- second name -->
+                            <div class="input-group mt-3">
+                                <div class="input-group-prepend ">
+                                    <div class="input-group-text">
+                                        <i class="fa-solid fa-user"></i>
+                                    </div>
+                                </div>
+                                <input required type="text" id="secondName" name="secondName" placeholder="Enter Second name here" class="form-control">
+                            </div>
+<!--end second name-->
+
+
+ <!-- work -->
+                            <div class="input-group mt-3">
+                                <div class="input-group-prepend ">
+                                    <div class="input-group-text">
+                                        <i class="fa-solid fa-briefcase"></i>
+                                    </div>
+                                </div>
+                                <input required type="text" id="work" name="work" placeholder="Enter work" class="form-control">
+                            </div>
+<!--end work-->
+
+<!-- email -->
+                            <div class="input-group mt-3">
+                                <div class="input-group-prepend ">
+                                    <div class="input-group-text">
+                                        <i class="fa-solid fa-at"></i>
+                                    </div>
+                                </div>
+                                <input required type="email" id="email" name="email" placeholder="Enter Email here" class="form-control">
+                            </div>
+<!--email-->
+
+<!-- phone -->
+                            <div class="input-group mt-3">
+                                <div class="input-group-prepend ">
+                                    <div class="input-group-text">
+                                        <i class="fa-solid fa-phone"></i>
+                                    </div>
+                                </div>
+                                <input required  type="number" id="phone" name="phone" placeholder="Enter phone number here" class="form-control">
+                            </div>
+ <!--phone-->
+
+
+
+<!-- description -->
+                            <div class="input-group my-3">
+                                <textarea id="textarea" rows="10"  name="description" placeholder="share your thoughts!!" style="width: 100%;" class="form-control"></textarea>
+                            </div>
+<!--description-->
+
+ <!-- image -->
+                            <div class="input-group my-3">
+                                <div class="input-group-prepend ">
+                                    <div class="input-group-text">
+                                        <i class="fa-solid fa-image"></i>
+                                    </div>
+                                </div>
+                                <input type="file" name="profileImage" >
+                            </div>
+<!--image-->
+                        <div class="container">
+                            <button style="background-color: black;" class="btn btn-outline-primary"> Save Contact</button>
+                        </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.tiny.cloud/1/r1w4bd2i4m4f5q5nd7nz20a468i7ebu0qdctozykq5i0rk6u/tinymce/7/tinymce.min.js" referrerpolicy="origin"></script>
+
+    <script>
+        tinymce.init({
+          selector: 'textarea',
+          plugins: 'anchor autolink charmap codesample emoticons image link lists media searchreplace table visualblocks wordcount checklist mediaembed casechange export formatpainter pageembed linkchecker a11ychecker tinymcespellchecker permanentpen powerpaste advtable advcode editimage advtemplate ai mentions tinycomments tableofcontents footnotes mergetags autocorrect typography inlinecss markdown',
+          toolbar: 'undo redo | blocks fontfamily fontsize | bold italic underline strikethrough | link image media table mergetags | addcomment showcomments | spellcheckdialog a11ycheck typography | align lineheight | checklist numlist bullist indent outdent | emoticons charmap | removeformat',
+          tinycomments_mode: 'embedded',
+          tinycomments_author: 'Author name',
+          mergetags_list: [
+            { value: 'First.Name', title: 'First Name' },
+            { value: 'Email', title: 'Email' },
+          ],
+          ai_request: (request, respondWith) => respondWith.string(() => Promise.reject("See docs to implement AI Assistant")),
+        });
+    </script>
+    </section>
+
+    </body>
+    </html>
