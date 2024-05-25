@@ -47,7 +47,7 @@
 <div  class="side-bar">
     <span onclick="toggleSidebar()"   class="cross-btn"> &times;</span>
     <a href="#" th:href="@{/user/index}" class="item"> <i class="fa-solid fa-house-chimney"></i> Home </a>
-    <a href="#" th:href="@{/user/view-contacts}" class="item"> <i class="fa-solid fa-address-book"></i> View Contacts</a>
+    <a href="#" th:href="@{/user/view-contacts/0}" class="item"> <i class="fa-solid fa-address-book"></i> View Contacts</a>
     <a href="#" th:href="@{/user/add-contact}" class="item"> <i class="fa-solid fa-user-plus"></i> Add Contact</a>
     <a href="#" class="item"> <i class="fa-solid fa-id-card-clip"></i> Your Profile</a>
     <a href="#" class="item"> <i class="fa-sharp fa-solid fa-gears"></i> Settings</a>
@@ -75,8 +75,86 @@
 <!--    end msg box-->
     <div th:replace="${content}"> </div>
 </div>
+
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+<!--<script>-->
+<!--    function deleteContact(cid){-->
+<!--        swal({-->
+<!--            title: "Are you sure?",-->
+<!--            text: "Once deleted, you will not be able to recover this Contact!!!",-->
+<!--            icon: "warning",-->
+<!--            buttons: true,-->
+<!--            dangerMode: true,-->
+<!--            })-->
+<!--            .then((willDelete) => {-->
+<!--            if (willDelete) {-->
+<!--            swal("Poof! Your Contact has been deleted!", {-->
+<!--            icon: "success",-->
+<!--            window.location.href="/user/delete/"+cid;-->
+<!--            });-->
+<!--            } else {-->
+<!--            swal("Your contact is safe!");-->
+<!--            }-->
+<!--            console.log("in delete function);-->
+<!--        });-->
+<!--    }-->
+<!--</script>-->
+<!--<script>-->
+<!--    function deleteContact(cid) {-->
+<!--        swal({-->
+<!--            title: "Are you sure?",-->
+<!--            text: "Once deleted, you will not be able to recover this Contact!!!",-->
+<!--            icon: "warning",-->
+<!--            buttons: true,-->
+<!--            dangerMode: true,-->
+<!--        })-->
+<!--        .then((willDelete) => {-->
+<!--            if (willDelete) {-->
+<!--                swal("Poof! Your Contact has been deleted!", {-->
+<!--                    icon: "success",-->
+<!--                }).then(() => {-->
+<!--                    console.log("Deleting contact with ID: " + cid);-->
+<!--                    document.getElementById("deleteForm_" + cid).submit();-->
+<!--                });-->
+<!--            } else {-->
+<!--                swal("Your contact is safe!");-->
+<!--            }-->
+<!--        });-->
+<!--    }-->
+<!--</script>-->
+
+<script>
+    function deleteContact(cid) {
+     console.log("Deleting contact with ID: " + cid);
+     var form = document.getElementById("deleteForm_" + cid);
+     console.log("Form element: ", form);
+     if (form) {
+         swal({
+             title: "Are you sure?",
+             text: "Once deleted, you will not be able to recover this Contact!!!",
+             icon: "warning",
+             buttons: true,
+             dangerMode: true,
+         })
+         .then((willDelete) => {
+             if (willDelete) {
+                 swal("Poof! Your Contact has been deleted!", {
+                     icon: "success",
+                 }).then(() => {
+                     form.submit();
+                 });
+             } else {
+                 swal("Your contact is safe!");
+             }
+         });
+     } else {
+         console.error("Form element not found for ID: " + cid);
+     }
+ }
+</script>
 <script th:src="@{/js/script.js}"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+
     </body>
 </html>
 
