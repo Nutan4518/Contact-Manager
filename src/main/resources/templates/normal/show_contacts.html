@@ -9,6 +9,14 @@
    <div class="show-contact-card my-3 mr-5 ">
        <div class="card-body">
            <h1 class="text-center"> Your Contact Book</h1>
+
+<!--           search-->
+           <div class="search-container my-3">
+               <input onkeyup="search()" id="search-input" type="text" class="form-control" placeholder="search your contacts">
+               <div class="search-result"  style="display:none;">
+               </div>
+           </div>
+
            <table class="table" method ="post">
                <thead class="thead-dark">
                <tr>
