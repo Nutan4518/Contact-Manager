@@ -19,72 +19,6 @@ function toggleSidebar() {
 };
 
 
-//function search(){
-//console.log("Searching");
-//}
-//
-
-
-//function search() {
-//    // Your search logic here
-//    console.log("Search function called");
-//    var query = document.getElementById("search-input").value;
-//    if(input=='')
-//    {
-//    console.log("blank input:", query);
-//     $(".search-result").hide();
-//    }
-//    else{
-//    console.log("Search input:", query);
-//
-////    sending request to server
-//    let url=`http://localhost:8282/search/${query}`
-//    fetch(url).then((response)=>{
-//    return response.json;
-//    }).then(data=>{
-//    console.log("data", data);
-//    });
-//
-//    $(".search-result").show();
-//    }
-//}
-
-//
-//document.addEventListener("DOMContentLoaded", function() {
-//    function search() {
-//        console.log("Search function called");
-//        var query = document.getElementById("search-input").value;
-//
-//        if (query === '') {
-//            console.log("blank input:", query);
-//            $(".search-result").hide();
-//        } else {
-//            console.log("Search input:", query);
-//
-//            // Sending request to server
-//            let url = `http://localhost:8282/search/${query}`;
-//            fetch(url).then((response) => {
-//                return response.json();
-//            }).then(data => {
-//                console.log("data", data);
-//                let text=`<div class='list-group'>`
-//                data.forEach(contact=>{
-//                text+=`<a href="#" class='list-group-item list-group-action'> ${content.name}</a>`
-//                });
-//                text+=`</div>`;
-//                $(".search-result").html(text);
-//                $(".search-result").show();
-//            }).catch(error => {
-//                console.error("Error fetching data:", error);
-//            });
-//
-//
-//        }
-//    }
-//
-//    // Expose the function to the global scope
-//    window.search = search;
-//});
 
 document.addEventListener("DOMContentLoaded", function() {
     function search() {
@@ -92,17 +26,17 @@ document.addEventListener("DOMContentLoaded", function() {
         var query = document.getElementById("search-input").value;
 
         if (query === '') {
-            console.log("blank input:", query);
+//            console.log("blank input:", query);
             $(".search-result").hide();
         } else {
-            console.log("Search input:", query);
+//            console.log("Search input:", query);
 
             // Sending request to server
             let url = `http://localhost:8282/search/${query}`;
             fetch(url).then((response) => {
                 return response.json();
             }).then(data => {
-                console.log("data", data);
+//                console.log("data", data);
                 let text = `<div class='list-group'>`;
                 data.forEach(contact => {
                     text += `<a href="/user/${contact.cId}/contact/" class='list-group-item list-group-item-action'>${contact.name}</a>`;
