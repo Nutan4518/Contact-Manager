@@ -1,5 +1,6 @@
 package com.example.smartcontactmanager.controller;
 
+import ch.qos.logback.core.encoder.EchoEncoder;
 import com.example.smartcontactmanager.dao.ContactRepository;
 import com.example.smartcontactmanager.dao.UserRepository;
 import com.example.smartcontactmanager.entities.Contact;
@@ -12,6 +13,7 @@ import org.springframework.core.io.ClassPathResource;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
@@ -39,13 +41,16 @@ public class UserController {
     @Autowired
     private ContactRepository contactRepository;
 
+    @Autowired
+    private BCryptPasswordEncoder bCryptPasswordEncoder;
+
     //    Method for Common data
     @ModelAttribute
     public void addCommonData(Model model, Principal principal) {
         String userName = principal.getName();
-        System.out.println("userName: " + userName);
+//        System.out.println("userName: " + userName);
         User user = userRepository.getUserByUserName(userName);
-        System.out.println("user: " + user);
+//        System.out.println("user: " + user);
         model.addAttribute("user", user);
     }
 
@@ -274,4 +279,33 @@ public class UserController {
         return "normal/settings";
     }
 
+//    change password handler
+
+    @PostMapping("/change-password")
+    public String changePassword(
+            @RequestParam("oldPassword") String oldPassword,
+            @RequestParam("newPassword") String newPassword,
+            Principal principal,
+            RedirectAttributes redirectAttributes
+    ){
+
+//            System.out.println("old password:::  " + oldPassword);
+//            System.out.println("new password:::  " + newPassword);
+
+            String userName = principal.getName();
+            User currentUser = this.userRepository.getUserByUserName(userName);
+
+            if (this.bCryptPasswordEncoder.matches(oldPassword, currentUser.getPassword())) {
+                currentUser.setPassword(this.bCryptPasswordEncoder.encode(newPassword));
+                User save = this.userRepository.save(currentUser);
+                redirectAttributes.addFlashAttribute("message", new Message("Your Password is changed successfully!!!! ", "success"));
+
+            }
+            else{
+                redirectAttributes.addFlashAttribute("message", new Message(" Your Password Could not change....Something went wrong ", "danger"));
+                return "redirect:/user/settings";
+            }
+
+        return "redirect:/user/index";
+    }
 }
